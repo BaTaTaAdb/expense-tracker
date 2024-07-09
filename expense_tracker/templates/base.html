@@ -11,49 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>    
-    <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom container-fluid">
-            <div class="">
-              <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="40" height="32" aria-label="Bootstrap" alt="Icon">
-                  <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                  <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                </svg>
-              </a>
-            </div>
-          
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="/" class="nav-link px-2 link-secondary">Your Cart</a></li>
-              <li><a href="/add" class="nav-link px-2">Add Item</a></li>
-              <li><a href="/about" class="nav-link px-2">About</a></li>
-            </ul>
-          
-            <div class="d-flex align-items-center">
-              {% if user.is_authenticated %}
-                <div class="dropdown">
-                  <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                  </a>
-                  <ul class="dropdown-menu text-small shadow">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="/account">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                      <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="dropdown-item">Sign out</button>
-                      </form>
-                    </li>
-                  </ul>
-                </div>
-              {% else %}
-                <a type="button" class="btn btn-outline-primary me-2" href="/login">Login</a>
-                <a type="button" class="btn btn-primary" href="/register">Sign-up</a>
-              {% endif %}
-            </div>
-        </header>          
-    </div>
+    
     <main class="container my-2">
         {% block content %}{% endblock %}
     </main>
