@@ -31,7 +31,7 @@ class OrderDelivery(models.Model):
         
 class Order(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Produc)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.TextField(default="Processing",blank=True, null=True)
