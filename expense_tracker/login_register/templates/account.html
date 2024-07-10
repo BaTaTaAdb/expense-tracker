@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}User page{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Welcome to the User Settings Page</h2>
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.username }}!</p>
+    {% else %}
+        <p>You are not logged in.</p>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

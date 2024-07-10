@@ -1,11 +1,10 @@
-version: '3'
-
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    working_dir: /app/expense_tracker # Set the working directory explicitly
+    command: /bin/sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/app
+      - .:/app # Map the entire current directory to /app
     ports:
       - "8000:8000"
     depends_on:
