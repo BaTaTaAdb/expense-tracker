@@ -2,11 +2,13 @@ services:
   web:
     build: .
     working_dir: /app/expense_tracker # Set the working directory explicitly
-    command: /bin/sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app # Map the entire current directory to /app
+      - static_volume:/app/static
+      - media_volume:/app/media
     ports:
       - "8000:8000"
+    command: /bin/sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
 
@@ -20,4 +22,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
+  static_volume:
+    driver: local
+  media_volume:
+    driver: local
   postgres_data:
