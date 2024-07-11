@@ -7,6 +7,10 @@ from django.shortcuts import render, redirect
 from .forms import ProductForm
 
 @login_required
+def order_overview(request):
+    return render(request, 'order_overview.html')
+
+@login_required
 def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
@@ -26,7 +30,6 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
-# orders = [{"name": bruh, "something": nice}, ...]
 @login_required
 def dashboard(request):
     orders = _get_user_orders(request)
