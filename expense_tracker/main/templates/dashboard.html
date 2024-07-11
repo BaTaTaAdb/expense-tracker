@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Dashboard</h2>
+    <ul>
+    {% if orders %}
+        {% for order in orders %}
+            <li>Order Number #{{ order.pk }}</li>
+                <ul>
+                {% for product in order.products.all %}
+                    <li>{{ product.name }} - {{ product.price }}€</li>
+                {% endfor %}
+                </ul>
+        {% endfor %}
+    {% else %}
+        <li>No orders found.</li>
+    {% endif %}
+    </ul>
+</div>
+{% endblock %}

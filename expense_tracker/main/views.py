@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ProductForm
-from main.models import Product
+from main.models import Order, User, Product
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
@@ -25,3 +25,17 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html')
+
+# orders = [{"name": bruh, "something": nice}, ...]
+@login_required
+def dashboard(request):
+    orders = _get_user_orders(request)
+    context = {"orders": orders}
+    print(context)
+    return render(request, 'dashboard.html', context)
+
+
+def _get_user_orders(request):
+    user = request.user
+    orders = Order.objects.filter(user=user)
+    return orders

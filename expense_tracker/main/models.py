@@ -35,5 +35,8 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.TextField(default="Processing",blank=True, null=True)
-    delivery = models.OneToOneField(OrderDelivery, on_delete=models.CASCADE)
+    delivery = models.OneToOneField(OrderDelivery, on_delete=models.CASCADE, null=True, blank=True)
+    
+    def __str__(self) -> str:
+        return "{}'s order - #{}".format(self.user.username, self.pk)
     
