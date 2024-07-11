@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card mt-5">
+    <div class="card-header">
+        <h3>{{ order.user.first_name }}'s Order - #{{ order.id }}</h3>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Order Details</h5>
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Status:</strong> {{ order.get_status_display }}</p>
+        <p><strong>Created At:</strong> {{ order.created_at }}</p>
+        <p><strong>Updated At:</strong> {{ order.updated_at }}</p>
+        <hr>
+        <h5>Products</h5>
+        <ul class="list-group">
+            {% for product in order.products.all %}
+                <li class="list-group-item">
+                    {{ product.name }} - {{ product.price }}$
+                </li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <h5>Delivery Details</h5>
+        {% if order.delivery %}
+            <p><strong>Address:</strong> {{ order.delivery.address }}</p>
+            <p><strong>City:</strong> {{ order.delivery.city }}</p>
+            <p><strong>Postal Code:</strong> {{ order.delivery.postal_code }}</p>
+            <p><strong>Country:</strong> {{ order.delivery.country }}</p>
+        {% else %}
+            <p>Delivery details not available.</p>
+        {% endif %}
+    </div>
+    <div class="card-footer text-end">
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Orders</a>
+    </div>
+</div>
+{% endblock %}

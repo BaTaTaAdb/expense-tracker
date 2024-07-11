@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProductForm
 from main.models import Order, User, Product
 from django.contrib.auth.decorators import login_required
@@ -6,9 +6,16 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import ProductForm
 
+
 @login_required
-def order_overview(request):
-    return render(request, 'order_overview.html')
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'product_detail.html', {'product': product})
+
+@login_required
+def order_details(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    return render(request, 'order_details.html', {'order': order})
 
 @login_required
 def add_product(request):

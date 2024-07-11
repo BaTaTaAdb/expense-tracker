@@ -3,16 +3,16 @@
         {% if orders %}
             {% for order in orders %}
                 <li class="list-group-item">
-                    <strong>Order Number #{{ order.pk }}</strong>
+                    <a href="{% url 'order_details' order.pk %}" class="text-primary text-decoration-none fw-bold">Order Number #{{ order.pk }}</a>
                     <ul class="list-group mt-2">
                         {% for product in order.products.all %}
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
                                     <img src="{{ product.image.url }}" alt="Product Icon" class="me-2" style="width: 24px; height: 24px;">
-                                    <span>{{ product.name }}</span>
+                                    <a href="{% url 'product_detail' product.pk %}" class="text-decoration-none" style="color: inherit;">{{ product.name }}</a>
                                 </div>
-                                <span>{{ product.price }} €</span>
+                                <span class="fw-bold">{{ product.price }} €</span>
                             </div>
                         </li>
                         {% endfor %}
