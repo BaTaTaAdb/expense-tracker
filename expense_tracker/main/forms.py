@@ -15,7 +15,7 @@ class ProductForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'image_url': forms.URLInput(attrs={'class': 'form-control'}),
             'url': forms.URLInput(attrs={'class': 'form-control'}),
-            'purchased_at': forms.DateTimeInput(attrs={'class': 'form-control'})
+            'purchased_at': forms.TextInput(attrs={'class': 'form-control', 'id': 'datepicker'})
         }
         
     def save(self, commit=True):
