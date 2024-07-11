@@ -30,7 +30,7 @@ def about(request):
 @login_required
 def dashboard(request):
     orders = _get_user_orders(request)
-    context = {"orders": orders}
+    context = {"orders": orders, "user": request.user}
     print(context)
     return render(request, 'dashboard.html', context)
 

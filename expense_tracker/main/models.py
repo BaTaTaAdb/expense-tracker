@@ -30,13 +30,21 @@ class OrderDelivery(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
         
 class Order(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    STATUS_CHOICES = [
+        ('Processing', 'Processing'),
+        ('Shipped', 'Shipped'),
+        ('Delivered', 'Delivered'),
+        ('Cancelled', 'Cancelled'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    status = models.TextField(default="Processing",blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Processing')
     delivery = models.OneToOneField(OrderDelivery, on_delete=models.CASCADE, null=True, blank=True)
+
     
     def __str__(self) -> str:
-        return "{}'s order - #{}".format(self.user.username, self.pk)
-    
+        first_name = self.user.first_name or "User"
+        return "{}'s order - #{}".format(first_name, self.pk)

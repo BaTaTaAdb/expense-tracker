@@ -3,21 +3,36 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Dashboard</h2>
-    <ul>
-    {% if orders %}
-        {% for order in orders %}
-            <li>Order Number #{{ order.pk }}</li>
-                <ul>
-                {% for product in order.products.all %}
-                    <li>{{ product.name }} - {{ product.price }}€</li>
-                {% endfor %}
-                </ul>
-        {% endfor %}
-    {% else %}
-        <li>No orders found.</li>
-    {% endif %}
-    </ul>
+<div class="container mt-0">
+    <div class="container mt-2">
+        <h2>Hi {{ user.first_name }}! Welcome to your dashboard</h2>
+        <div class="mx-left" style="max-width: 60%;">
+            <ul class="list-group mt-4">
+                {% if orders %}
+                    {% for order in orders %}
+                        <li class="list-group-item">
+                            <strong>Order Number #{{ order.pk }}</strong>
+                            <ul class="list-group mt-2">
+                                {% for product in order.products.all %}
+                                <li class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ product.image.url }}" alt="Product Icon" class="me-2" style="width: 24px; height: 24px;">
+                                            <span>{{ product.name }}</span>
+                                        </div>
+                                        <span>{{ product.price }} €</span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item">No orders found.</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
