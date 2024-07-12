@@ -6,18 +6,7 @@
                     <a href="{% url 'order_details' order.pk %}" class="text-primary text-decoration-none fw-bold">Order Number #{{ order.pk }}</a>
                     <ul class="list-group mt-2">
                         {% for order_item in order.orderitem_set.all %}
-                        <li class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    {% if order_item.product.image %}
-                                    <img src="{{ order_item.product.image.url }}" alt="Product Icon" class="me-2" style="width: 24px; height: 24px;">
-                                    {% endif %}
-                                    <span class="badge bg-primary me-2">{{ order_item.quantity }}x</span>
-                                    <a href="{% url 'product_detail' order_item.product.pk %}" class="text-decoration-none" style="color: inherit;">{{ order_item.product.name }}</a>
-                                </div>
-                                <span class="fw-bold">{{ order_item.product.price }} €</span>
-                            </div>
-                        </li>
+                            {% include "order_items_list.html" %}
                         {% endfor %}
                     </ul>
                 </li>

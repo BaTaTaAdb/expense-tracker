@@ -61,6 +61,10 @@ class OrderItem(models.Model):
     def __str__(self) -> str:
         return f"{self.quantity}x '{self.product.name}' of Order #{self.order.pk} from {self.order.user.first_name} (#{self.order.user.pk})"
 
+    def save(self, *args, **kwargs):
+        self.subtotal = self.product.price * self.quantity
+        super().save(*args, **kwargs)
+
 class Order(models.Model):
     STATUS_CHOICES = [
         ('Processing', 'Processing'),

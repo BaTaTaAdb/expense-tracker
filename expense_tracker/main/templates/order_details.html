@@ -13,22 +13,7 @@
         <p><strong>Updated At:</strong> {{ order.updated_at }}</p>
         <hr>
         <h5>Products</h5>
-        <ul class="list-group">
-            {% for order_item in order.orderitem_set.all %}
-                        <li class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    {% if order_item.product.image %}
-                                    <img src="{{ order_item.product.image.url }}" alt="Product Icon" class="me-2" style="width: 24px; height: 24px;">
-                                    {% endif %}
-                                    <span class="badge bg-primary me-2">{{ order_item.quantity }}x</span>
-                                    <a href="{% url 'product_detail' order_item.product.pk %}" class="text-decoration-none" style="color: inherit;">{{ order_item.product.name }}</a>
-                                </div>
-                                <span class="fw-bold">{{ order_item.product.price }} €</span>
-                            </div>
-                        </li>
-            {% endfor %}
-        </ul>
+        {% include "order_items_list.html" %}
         <hr>
         <h5>Delivery Details</h5>
         {% if order.delivery %}
@@ -39,7 +24,13 @@
         {% endif %}
     </div>
     <div class="card-footer text-end">
-        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Orders</a>
+        <div class="d-flex justify-content-start">
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Orders</a>
+            <form method="POST" action="{% url 'delete_order' order.id %}" class="ms-2">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete Order</button>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

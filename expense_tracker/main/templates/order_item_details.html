@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card mt-5">
+    <div class="card-header">
+        <h3>{{ order_item.product.name }}</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-center">
+                {% if order_item.product.image %}
+                    <img src="{{ order_item.product.image.url }}" class="img-fluid" alt="{{ order_item.product.name }}">
+                {% elif order_item.product.image_url %}
+                    <img src="{{ order_item.product.image_url }}" class="img-fluid" alt="{{ order_item.product.name }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/300" class="img-fluid" alt="Placeholder Image">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <h5 class="card-title">Product Details</h5>
+                <p><strong>Name:</strong> {{ order_item.product.name }}</p>
+                <p><strong>Qnt:</strong> {{ order_item.quantity }}</p>
+                <p><strong>Price:</strong> {{ order_item.product.price }} €</p>
+                <p><strong>Subtotal:</strong> {{ order_item.subtotal }} €</p>
+                <p><strong>Description:</strong> {{ order_item.product.description }}</p>
+                <p><strong>Product URL:</strong> <a href="{{ order_item.product.url }}" target="_blank">{{ order_item.product.url }}</a></p>
+                <p><strong>Created At:</strong> {{ order_item.product.created_at }}</p>
+                <p><strong>Updated At:</strong> {{ order_item.product.updated_at }}</p>
+                <p><strong>Purchased At:</strong> {{ order_item.product.purchased_at }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}
