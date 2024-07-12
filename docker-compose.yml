@@ -1,4 +1,13 @@
 services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   web:
     build: .
     working_dir: /app/expense_tracker # Set the working directory explicitly
@@ -11,15 +20,6 @@ services:
     command: /bin/sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
-
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   static_volume:
