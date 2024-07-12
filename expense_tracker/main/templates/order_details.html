@@ -14,19 +14,26 @@
         <hr>
         <h5>Products</h5>
         <ul class="list-group">
-            {% for product in order.products.all %}
-                <li class="list-group-item">
-                    {{ product.name }} - {{ product.price }}$
-                </li>
+            {% for order_item in order.orderitem_set.all %}
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    {% if order_item.product.image %}
+                                    <img src="{{ order_item.product.image.url }}" alt="Product Icon" class="me-2" style="width: 24px; height: 24px;">
+                                    {% endif %}
+                                    <span class="badge bg-primary me-2">{{ order_item.quantity }}x</span>
+                                    <a href="{% url 'product_detail' order_item.product.pk %}" class="text-decoration-none" style="color: inherit;">{{ order_item.product.name }}</a>
+                                </div>
+                                <span class="fw-bold">{{ order_item.product.price }} €</span>
+                            </div>
+                        </li>
             {% endfor %}
         </ul>
         <hr>
         <h5>Delivery Details</h5>
         {% if order.delivery %}
-            <p><strong>Address:</strong> {{ order.delivery.address }}</p>
-            <p><strong>City:</strong> {{ order.delivery.city }}</p>
-            <p><strong>Postal Code:</strong> {{ order.delivery.postal_code }}</p>
-            <p><strong>Country:</strong> {{ order.delivery.country }}</p>
+            <p><strong>Courier:</strong> {{ order.delivery.courier.name }}</p>
+            <p><strong>Status:</strong> {{ order.delivery.order_status }}</p>
         {% else %}
             <p>Delivery details not available.</p>
         {% endif %}

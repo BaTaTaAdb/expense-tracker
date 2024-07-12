@@ -29,13 +29,28 @@ class Courier(models.Model):
     
 
 class OrderDelivery(models.Model):
-    order_status = models.TextField(blank=True, null=True)
+    ORDER_STATUS_CHOICES = [
+    ('Processing', 'Processing'),
+    ('In-Transit', 'In-Transit'),
+    ('Delivered', 'Delivered'),
+    ('Cancelled', 'Cancelled'),
+    ('Returned', 'Returned'),
+    ('Refunded', 'Refunded'),
+    ('Failed', 'Failed'),
+    ('Delayed', 'Delayed'),
+    ]
+    
+    order_status = models.CharField(
+        max_length=10,
+        choices=ORDER_STATUS_CHOICES,
+        default='Processing',
+    )
     courier = models.ForeignKey(Courier, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
-        return f"Delivery #{self.pk} by {self.courier.name}"
+        return f"Delivery #{self.pk} by {self.courier.name} - {self.order_status}"
     
 class OrderItem(models.Model):
     order = models.ForeignKey('Order', on_delete=models.CASCADE)
@@ -44,7 +59,7 @@ class OrderItem(models.Model):
     subtotal = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     def __str__(self) -> str:
-        return f"{self.quantity} x {self.product.name}"
+        return f"{self.quantity}x '{self.product.name}' of Order #{self.order.pk} from {self.order.user.first_name} (#{self.order.user.pk})"
 
 class Order(models.Model):
     STATUS_CHOICES = [
