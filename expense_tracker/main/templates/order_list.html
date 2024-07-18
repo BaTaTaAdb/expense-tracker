@@ -5,9 +5,7 @@
                 <li class="list-group-item">
                     <a href="{% url 'order_details' order.pk %}" class="text-primary text-decoration-none fw-bold">Order Number #{{ order.pk }}</a>
                     <ul class="list-group mt-2">
-                        {% for order_item in order.orderitem_set.all %}
-                            {% include "order_items_list.html" %}
-                        {% endfor %}
+                        {% include "order_items_list.html" %}
                     </ul>
                 </li>
             {% endfor %}

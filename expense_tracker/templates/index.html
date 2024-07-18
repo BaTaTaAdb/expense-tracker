@@ -3,6 +3,19 @@
 {% block content %}
 <h2>Welcome to Expense Tracker +</h2>
 <div class="container mt-5 d-flex">
-    <a href="dashboard/" class="btn btn-fancy">Go to Dashboard</a>
+  <div class="row">
+    <div class="col d-flex justify-content-between">
+      <div class="dropdown">
+        <button class="btn btn-fancy dropdown-toggle me-4" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Create order
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="{% url 'create_order_single_item' %}">from Single Item</a></li>
+          <li><a class="dropdown-item" href="{% url 'create_order_multiple_items' %}">from Multiple Items</a></li>
+        </ul>
+      </div>
+      <a href="dashboard/" class="btn btn-fancy">Go to Dashboard</a>
+    </div>
   </div>
+</div>
 {% endblock %}

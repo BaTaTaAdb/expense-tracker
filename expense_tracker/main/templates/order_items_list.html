@@ -1,19 +1,17 @@
-<ul class="list-group">
-    {% for order_item in order.orderitem_set.all %}
-        <li class="list-group-item">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    {% if order_item.product.image %}
-                    <img src="{{ order_item.product.image.url }}" alt="Product Icon" class="me-2" style="width: 24px; height: 24px;">
-                    {% endif %}
-                    <span class="badge bg-primary me-2">{{ order_item.quantity }}x</span>
-                    <a href="{% url 'order_item_details' order_item.pk %}" class="text-decoration-none" style="color: inherit;">{{ order_item.product.name }}</a>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span class="me-2 text-muted">{{ order_item.product.price }}/Unt €</span>
-                    <span class="fw-bold">{{ order_item.subtotal }} €</span>
-                </div>
+{% for order_item in order.orderitem_set.all %}
+    <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                {% if order_item.product.image %}
+                <img src="{{ order_item.product.image.url }}" alt="Product Icon" class="me-2" style="width: 24px; height: 24px;">
+                {% endif %}
+                <span class="badge bg-primary me-2">{{ order_item.quantity }}x</span>
+                <a href="{% url 'order_item_details' order_item.pk %}" class="text-decoration-none" style="color: inherit;">{{ order_item.product.name }}</a>
             </div>
-        </li>
-    {% endfor %}
-</ul>
+            <div class="d-flex align-items-center">
+                <span class="me-2 text-muted">{{ order_item.product.price }}/Unt €</span>
+                <span class="fw-bold">{{ order_item.subtotal }} €</span>
+            </div>
+        </div>
+    </li>
+{% endfor %}
